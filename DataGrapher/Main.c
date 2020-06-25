@@ -37,7 +37,7 @@ int main() {
 	while (!file_end) {
 		i = 0;
 		
-		/*step through chars and append to data_rBuf until a return char is found then break*/
+		/*step through chars and append to data_rBuf until a return char is found. return char is last char in string*/
 		do {
 			file_end = fread(file_rBuf, sizeof(char), 1, data);
 
@@ -45,9 +45,7 @@ int main() {
 				end = 1;
 			data_Buf[i++] = *file_rBuf;
 		} while (!end);
-		if(file_end)
-			break;
-		/*convert data_buf to int, then convert 10-bit 5v adc output to a double voltage*/
+		/*convert data_buf to int. atoi ignores \r at end of string, then convert 10-bit 5v adc output to a float voltage*/
 		*data_intBuf = atoi(data_Buf);
 		data_processed.voltage = (float)5 / ((float)1023 / (float)*data_intBuf);
 
