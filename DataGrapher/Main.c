@@ -3,7 +3,8 @@
 
 typedef struct {
 	int sampleNum;								//sample # assosiated with data_voltage
-	float voltage;
+	Uint16 rawVoltage;							//raw voltage from adc
+	float voltage;								//voltage
 } measurement;
 
 int main() {
@@ -14,15 +15,16 @@ int main() {
 	*width = 388;
 	*height = 450;
 	Uint8 quit = 0;			//BOOL
-	Uint8 file_end = 0;		//BOOL, true when end of file reached
+	Uint8 charRead = 1;		//BOOL, 0 when no chars left to read
 	Uint8 end = 0;			//BOOL
 	SDL_Event event;
 	char* file_rBuf = malloc(sizeof(char));			//BUFFER, for reading one char from a file
 	char* data_Buf = malloc(sizeof(char) * 5);		//BUFFER
 	int* data_intBuf = malloc(sizeof(int));
-	measurement data_processed;
-	data_processed.sampleNum = 0;
-	FILE* data;				//data stored as chars terminated with \r
+	Uint16 dataNum = 0;
+	measurement* data_processed = malloc(sizeof(measurement) * 500);	//array to store points, be sure it has enough space
+	data_processed->sampleNum = 0;
+	FILE* data;				//data stored as chars terminated with \r, must have \r at end of last line
 #pragma warning(suppress : 4996)
 	data = fopen("C:\\Users\\bensk\\data.txt", "r");
 	if (data == NULL)
@@ -34,22 +36,24 @@ int main() {
 	Uint32* windowID = malloc(sizeof(Uint32));
 	*windowID = SDL_GetWindowID(win);
 
-	while (!file_end) {
+	while (charRead) {
 		i = 0;
-		
+		end = 0;
 		/*step through chars and append to data_rBuf until a return char is found. return char is last char in string*/
 		do {
-			file_end = fread(file_rBuf, sizeof(char), 1, data);
+			charRead = fread(file_rBuf, sizeof(char), 1, data);
 
 			if (*file_rBuf == '\r')
 				end = 1;
 			data_Buf[i++] = *file_rBuf;
 		} while (!end);
 		/*convert data_buf to int. atoi ignores \r at end of string, then convert 10-bit 5v adc output to a float voltage*/
-		*data_intBuf = atoi(data_Buf);
-		data_processed.voltage = (float)5 / ((float)1023 / (float)*data_intBuf);
+		data_processed[dataNum].rawVoltage = atoi(data_Buf);
+		data_processed[dataNum].voltage = (float)5 / ((float)1023 / (float)data_processed[dataNum].rawVoltage);
 
-		data_processed.sampleNum++;
+
+
+		data_processed[dataNum].sampleNum++;
 	}
 
 	SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
