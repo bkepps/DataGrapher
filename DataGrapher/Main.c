@@ -42,8 +42,7 @@ int main() {
 		end = 0;
 		/*step through chars and append to data_rBuf until a return char is found. return char is last char in string*/
 		do {
-			charRead = fread(file_rBuf, sizeof(char), 1, data);
-
+			charRead = fread(file_rBuf, sizeof(char), 1, data);		//returns 0 when no chars left to read, will store one more point, we'll ignore it later
 			if (*file_rBuf == '\r')
 				end = 1;
 			data_Buf[i++] = *file_rBuf;
