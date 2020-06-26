@@ -3,6 +3,7 @@
 
 int main() {
 	int i = 0;
+	float j;
 	const char* title = "Data Plotter V0.9.2";
 	Uint32* width = malloc(sizeof(Uint32));
 	Uint32* height = malloc(sizeof(Uint32));
@@ -69,17 +70,25 @@ int main() {
 				}
 				break;
 			}
+			SDL_RenderClear(ren);
+			SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
+			for (j = 5; j <= 500; j += 10.23) {
+				SDL_RenderDrawLine(ren, 0, j, *width, j);
+			}
+			for (i = 0; i <= *width; i += 12) {
+				SDL_RenderDrawLine(ren, i, 0, i, *height);
+			}
+			/*set the color of the points*/
+			SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
+			/*plot data points, but not last one since it's garbo*/
+			SDL_RenderDrawPoints(ren, points, (dataNumr - 1));
+			/*put the render color back to white*/
+			SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+			SDL_RenderPresent(ren);
 		}
 
 
-		SDL_RenderClear(ren);
-		/*set the color of the points*/
-		SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
-		/*plot data points, but not last one since it's garbo*/
-		SDL_RenderDrawPoints(ren, points, (dataNumr - 1));
-		/*put the render color back to white*/
-		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
-		SDL_RenderPresent(ren);
+
 	}
 	SDL_Quit();
 	return 0;
