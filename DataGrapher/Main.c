@@ -83,6 +83,11 @@ int main() {
 			for (i = 0; i <= *width; i += 12) {
 				SDL_RenderDrawLine(ren, i, 0, i, *height);
 			}
+			/*creates red vertical lines every 10 minutes at 6 samples per second*/
+			SDL_SetRenderDrawColor(ren, 255, 20, 20, 255);
+			for (i = 0; i <= *width; i += 60) {
+				SDL_RenderDrawLine(ren, i, 0, i, *height);
+			}
 			/*set the color of the points*/
 			SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
 			/*plot data points and connect them, but not last one since it's garbo*/
