@@ -23,9 +23,11 @@ int main() {
 	int* data_intBuf = malloc(sizeof(int));
 	Uint32 dataNumr = 0;							//counts data number being read
 	Uint32 dataNump = 0;							//counts data number while plotting
-	measurement* data_processed = malloc(sizeof(measurement) * 500);	//array to store points, be sure it has enough space
-	data_processed->sampleNum = 0;
+//	measurement* data_processed = malloc(sizeof(measurement) * 500);	//array to store points, be sure it has enough space
+//	data_processed->sampleNum = 0;
 	FILE* data;				//data stored as chars terminated with \r, must have \r at end of last line
+	SDL_Point* points = malloc(sizeof(SDL_Point) * 500);
+
 #pragma warning(suppress : 4996)
 	data = fopen("C:\\Users\\bensk\\data.txt", "r");
 	if (data == NULL)
@@ -48,19 +50,19 @@ int main() {
 			data_Buf[i++] = *file_rBuf;
 		} while (!end);
 		/*convert data_buf to int. atoi ignores \r at end of string, then convert 10-bit 5v adc output to a float voltage*/
-		data_processed[dataNumr].rawVoltage = atoi(data_Buf);
-		data_processed[dataNumr].voltage = (float)5 / ((float)1023 / (float)data_processed[dataNumr].rawVoltage);
-		data_processed[dataNumr].sampleNum++;
+//		data_processed[dataNumr].rawVoltage = atoi(data_Buf);
+//		data_processed[dataNumr].voltage = (float)5 / ((float)1023 / (float)data_processed[dataNumr].rawVoltage);
+//		data_processed[dataNumr].sampleNum++;
+		points[dataNumr].y = *height - atoi(data_Buf);
+		points[dataNumr].x = ++dataNumr;
+
 	}
 	/*plot data points, but not last one since it's garbo*/
-	while (dataNump < dataNumr) {
-		/*
-		plot points
-		*/
-	}
+	SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
+	SDL_RenderDrawPoints(ren, points, (dataNumr - 2));
 
 
-	SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+	//SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 	SDL_RenderClear(ren);
 
 	while (!quit) {
@@ -82,9 +84,12 @@ int main() {
 				break;
 			}
 		}
-		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
-		SDL_RenderClear(ren);
 
+
+		SDL_RenderClear(ren);
+		SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
+		SDL_RenderDrawPoints(ren, points, (dataNumr - 2));
+		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 		SDL_RenderPresent(ren);
 	}
 	SDL_Quit();
