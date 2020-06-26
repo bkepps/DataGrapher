@@ -21,7 +21,8 @@ int main() {
 	char* file_rBuf = malloc(sizeof(char));			//BUFFER, for reading one char from a file
 	char* data_Buf = malloc(sizeof(char) * 5);		//BUFFER
 	int* data_intBuf = malloc(sizeof(int));
-	Uint16 dataNum = 0;
+	Uint32 dataNumr = 0;							//counts data number being read
+	Uint32 dataNump = 0;							//counts data number while plotting
 	measurement* data_processed = malloc(sizeof(measurement) * 500);	//array to store points, be sure it has enough space
 	data_processed->sampleNum = 0;
 	FILE* data;				//data stored as chars terminated with \r, must have \r at end of last line
@@ -48,13 +49,17 @@ int main() {
 			data_Buf[i++] = *file_rBuf;
 		} while (!end);
 		/*convert data_buf to int. atoi ignores \r at end of string, then convert 10-bit 5v adc output to a float voltage*/
-		data_processed[dataNum].rawVoltage = atoi(data_Buf);
-		data_processed[dataNum].voltage = (float)5 / ((float)1023 / (float)data_processed[dataNum].rawVoltage);
-
-
-
-		data_processed[dataNum].sampleNum++;
+		data_processed[dataNumr].rawVoltage = atoi(data_Buf);
+		data_processed[dataNumr].voltage = (float)5 / ((float)1023 / (float)data_processed[dataNumr].rawVoltage);
+		data_processed[dataNumr].sampleNum++;
 	}
+	/*plot data points, but not last one since it's garbo*/
+	while (dataNump < dataNumr) {
+		/*
+		plot points
+		*/
+	}
+
 
 	SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 	SDL_RenderClear(ren);
