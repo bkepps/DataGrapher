@@ -21,7 +21,7 @@ int main() {
 	int datapoints[500];
 
 #pragma warning(suppress : 4996)
-	data = fopen("C:\\Users\\bensk\\data.txt", "r");
+	data = fopen("C:\\Users\\bensk\\data.txt", "r");		//open file with points to read
 	if (data == NULL)
 		return 1;
 
@@ -70,20 +70,30 @@ int main() {
 				}
 				break;
 			}
+			/*render everything*/
+			SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 			SDL_RenderClear(ren);
-			SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
-			for (j = 5; j <= 500; j += 10.23) {
+			/*set color for grid*/
+			SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
+			/*creates horizontal lines about 50mV apart*/
+			for (j = 5; j <= *height; j += 10.23) {
 				SDL_RenderDrawLine(ren, 0, j, *width, j);
 			}
+			/*creates vertical lines 12 points (at 10 seconds per point, 2 minutes per line) apart*/
 			for (i = 0; i <= *width; i += 12) {
+				SDL_RenderDrawLine(ren, i, 0, i, *height);
+			}
+			/*creates red vertical lines every 10 minutes at 6 samples per second*/
+			SDL_SetRenderDrawColor(ren, 255, 20, 20, 255);
+			for (i = 0; i <= *width; i += 60) {
 				SDL_RenderDrawLine(ren, i, 0, i, *height);
 			}
 			/*set the color of the points*/
 			SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
-			/*plot data points, but not last one since it's garbo*/
-			SDL_RenderDrawPoints(ren, points, (dataNumr - 1));
+			/*plot data points and connect them, but not last one since it's garbo*/
+			SDL_RenderDrawLines(ren, points, (dataNumr - 1));
 			/*put the render color back to white*/
-			SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+
 			SDL_RenderPresent(ren);
 		}
 
