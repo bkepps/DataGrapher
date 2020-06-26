@@ -3,7 +3,7 @@
 
 int main() {
 	int i = 0;
-	const char* title = "Oscilloscope V0.0.0005";
+	const char* title = "Data Plotter V0.9.2";
 	Uint32* width = malloc(sizeof(Uint32));
 	Uint32* height = malloc(sizeof(Uint32));
 	*width = 388;
@@ -46,7 +46,10 @@ int main() {
 		points[dataNumr].x = ++dataNumr;
 
 	}
-
+	free(file_rBuf);
+	free(data_Buf);
+	free(charRead);
+	free(data);
 
 	while (!quit) {
 		while (SDL_PollEvent(&event)) {
