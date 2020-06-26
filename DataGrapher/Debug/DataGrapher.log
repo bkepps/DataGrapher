@@ -1,5 +1,5 @@
 ﻿  Main.c
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(10,12): warning C4026: function declared with formal parameter list
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(47,54): warning C4267: '=': conversion from 'size_t' to 'Uint8', possible loss of data
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(56,38): warning C4013: 'atoi' undefined; assuming extern returning int
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(4,12): warning C4026: function declared with formal parameter list
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(39,54): warning C4267: '=': conversion from 'size_t' to 'Uint8', possible loss of data
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(45,30): warning C4013: 'atoi' undefined; assuming extern returning int
   DataGrapher.vcxproj -> C:\Users\bensk\source\repos\DataGrapher\Debug\DataGrapher.exe
