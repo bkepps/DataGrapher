@@ -21,7 +21,7 @@ int main() {
 	int datapoints[500];
 
 #pragma warning(suppress : 4996)
-	data = fopen("C:\\Users\\bensk\\data.txt", "r");
+	data = fopen("C:\\Users\\bensk\\data.txt", "r");		//open file with points to read
 	if (data == NULL)
 		return 1;
 
