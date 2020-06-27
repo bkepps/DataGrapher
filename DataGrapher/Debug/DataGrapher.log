@@ -11,5 +11,6 @@ C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(161,42): warning C430
 C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(162,32): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
 C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(162,51): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
 C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(29,8): warning C4101: 'SerialBuffer': unreferenced local variable
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(22,6): warning C4101: 'datapoints': unreferenced local variable
 C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(27,8): warning C4101: 'dwEventMask': unreferenced local variable
   DataGrapher.vcxproj -> C:\Users\bensk\source\repos\DataGrapher\Debug\DataGrapher.exe

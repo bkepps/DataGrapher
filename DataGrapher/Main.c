@@ -7,9 +7,9 @@ int main() {
 	float j;
 	const char* title = "Data Plotter V1";
 	Uint32 width = 380;
-	Uint32 height = 500;
+	Uint32 height = 700;
 	Uint32 graphSizew = 380;
-	Uint32 graphSizeh = 500;
+	Uint32 graphSizeh = 600;
 	Uint8 quit = 0;			//BOOL
 	Uint8 charRead = 1;		//BOOL, 0 when no chars left to read
 	Uint8 end = 0;			//BOOL
@@ -134,8 +134,8 @@ int main() {
 			/*convert data_buf to int. atoi ignores \r at end of string*/
 			if (!NoBytesRead)
 				break;
-			datapoints[dataNumr] = atoi(data_Buf);
-			points[dataNumr].y = height - atoi(data_Buf);
+			//datapoints[dataNumr] = atoi(data_Buf);
+			points[dataNumr].y = graphSizeh - (atoi(data_Buf) / 2);
 			points[dataNumr].x = ++dataNumr;
 		}
 
