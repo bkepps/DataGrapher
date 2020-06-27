@@ -119,17 +119,25 @@ int main() {
 			}
 			
 		}
-		end = 0;
-		do {
-			ReadFile(hComm, file_rBuf, sizeof(TempChar), &NoBytesRead, NULL);
-			if (*file_rBuf == '\r')
-				end = 1;
-			data_Buf[i++] = *file_rBuf;
-		} while (!end);
-		/*convert data_buf to int. atoi ignores \r at end of string*/
-		datapoints[dataNumr] = atoi(data_Buf);
-		points[dataNumr].y = graphSizeh - atoi(data_Buf);
-		points[dataNumr].x = ++dataNumr;
+
+		NoBytesRead = 1;
+		while (NoBytesRead) {
+			i = 0;
+			end = 0;
+			/*step through chars and append to data_rBuf until a return char is found. return char is last char in string*/
+			do {
+				ReadFile(hComm, file_rBuf, sizeof(TempChar), &NoBytesRead, NULL);		//returns 0 when no chars left to read, will store one more point, we'll ignore it later
+				if (*file_rBuf == '\r')
+					end = 1;
+				data_Buf[i++] = *file_rBuf;
+			} while (!end);
+			/*convert data_buf to int. atoi ignores \r at end of string*/
+			if (!NoBytesRead)
+				break;
+			datapoints[dataNumr] = atoi(data_Buf);
+			points[dataNumr].y = height - atoi(data_Buf);
+			points[dataNumr].x = ++dataNumr;
+		}
 
 		/*render everything*/
 		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
