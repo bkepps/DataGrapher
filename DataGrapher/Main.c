@@ -120,8 +120,7 @@ int main() {
 			
 		}
 
-		NoBytesRead = 1;
-		while (NoBytesRead) {
+		do {
 			i = 0;
 			end = 0;
 			/*step through chars and append to data_rBuf until a return char is found. return char is last char in string*/
@@ -137,7 +136,7 @@ int main() {
 			//datapoints[dataNumr] = atoi(data_Buf);
 			points[dataNumr].y = graphSizeh - (atoi(data_Buf) / 2);
 			points[dataNumr].x = ++dataNumr;
-		}
+		} while (NoBytesRead);
 
 		/*render everything*/
 		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
