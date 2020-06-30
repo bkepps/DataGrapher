@@ -25,37 +25,14 @@ int main() {
 	data->run = 0;
 	data->graphHeight = graphSizeh;
 
-//#pragma warning(suppress : 4996)							// lets me use the unsafe version of fread()
-	//data = fopen("C:\\Users\\bensk\\data.txt", "r");		//open file with points to read
-	//if (data == NULL)
-	//	return 1;
-
+	/*initialize SDL*/
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_Window* win = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	Uint32* windowID = malloc(sizeof(Uint32));
 	*windowID = SDL_GetWindowID(win);
-	/*
-	while (charRead) {
-		i = 0;
-		end = 0;
-		/*step through chars and append to data_rBuf until a return char is found. return char is last char in string*//*
-		do {
-			charRead = fread(file_rBuf, sizeof(char), 1, data);		//returns 0 when no chars left to read, will store one more point, we'll ignore it later
-			if (*file_rBuf == '\r')
-				end = 1;
-			data_Buf[i++] = *file_rBuf;
-		} while (!end);
-		/*convert data_buf to int. atoi ignores \r at end of string*//*
-		datapoints[dataNumr] = atoi(data_Buf);
-		points[dataNumr].y = height - atoi(data_Buf);
-		points[dataNumr].x = ++dataNumr;
-	}*/
-	//free(file_rBuf);
-	//free(data_Buf);
-	//free(charRead);
-	//free(data);
 
+	/*open serial port*/
 	data->port = CreateFile(L"COM4",                  // Name of the Port to be Opened
 		GENERIC_READ,							// Read Access
 		0,                            // No Sharing, ports cant be shared
@@ -88,6 +65,7 @@ int main() {
 	if (SetCommTimeouts(data->port, &timeouts) == FALSE)
 		return 4;
 
+	/*enter window loop*/
 	while (!quit) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
@@ -109,45 +87,25 @@ int main() {
 			
 		}
 
+		/*update graph if data points have been updated / gather thread is complete*/
 		if (data->updated) {
 
 			/*render everything*/
 			SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 			SDL_RenderClear(ren);
-			/*set color for grid*/
-			SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
-			/*creates horizontal lines about 50mV apart*/
-			for (j = graphSizeh; j >= 0; j -= 10.23) {
-				SDL_RenderDrawLine(ren, 0, j, (data->numOfPoints), j);
-			}
-			/*creates vertical lines 12 points (at 10 seconds per point, 2 minutes per line) apart*/
-			for (i = 0; i <= (data->numOfPoints); i += 12) {
-				SDL_RenderDrawLine(ren, i, 0, i, graphSizeh);
-			}
-			/*creates red vertical lines every 10 minutes at 6 samples per second*/
-			SDL_SetRenderDrawColor(ren, 150, 150, 150, 255);
-			for (i = 0; i <= (data->numOfPoints); i += 60) {
-				SDL_RenderDrawLine(ren, i, 0, i, graphSizeh);
-			}
-			/*creates horizontal red line every 1V with 10-bit 0-5V adc*/
-			for (j = graphSizeh; j >= 0; j -= 204.6) {
-				SDL_RenderDrawLine(ren, 0, j, (data->numOfPoints), j);
-			}
-			/*set the color of the points*/
-			SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
-			/*plot data points and connect them, but not last one since it's garbo*/
-			SDL_RenderDrawLines(ren, data->points, (data->numOfPoints));
-			/*put the render color back to white*/
-			data->updated = 0;
+
+			GraphUpdate(data, ren);
 			SDL_RenderPresent(ren);
 		}
+		/*start new thread to update data points if gather thread is not running*/
 		if(!data->run) {
 			_beginthread(Gather, 0, data);
 			data->run = 1;
 		}
 
 	}
-	while (data->run)		//wait for gather thread to complete
+
+	while (data->run)		//wait for gather thread to complete before quitting to avoid memory access error
 		Sleep(10);
 
 	SDL_Quit();
