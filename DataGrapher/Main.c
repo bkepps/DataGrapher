@@ -23,6 +23,7 @@ int main() {
 	data->points = malloc(sizeof(SDL_Point) * data->numOfPoints);
 	data->updated = 0;
 	data->run = 0;
+	data->graphHeight = graphSizeh;
 
 //#pragma warning(suppress : 4996)							// lets me use the unsafe version of fread()
 	//data = fopen("C:\\Users\\bensk\\data.txt", "r");		//open file with points to read
@@ -117,34 +118,38 @@ int main() {
 			SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
 			/*creates horizontal lines about 50mV apart*/
 			for (j = graphSizeh; j >= 0; j -= 10.23) {
-				SDL_RenderDrawLine(ren, 0, j, (data->numOfPoints - 1), j);
+				SDL_RenderDrawLine(ren, 0, j, (data->numOfPoints), j);
 			}
 			/*creates vertical lines 12 points (at 10 seconds per point, 2 minutes per line) apart*/
-			for (i = 0; i <= (data->numOfPoints - 1); i += 12) {
+			for (i = 0; i <= (data->numOfPoints); i += 12) {
 				SDL_RenderDrawLine(ren, i, 0, i, graphSizeh);
 			}
 			/*creates red vertical lines every 10 minutes at 6 samples per second*/
 			SDL_SetRenderDrawColor(ren, 150, 150, 150, 255);
-			for (i = 0; i <= (data->numOfPoints - 1); i += 60) {
+			for (i = 0; i <= (data->numOfPoints); i += 60) {
 				SDL_RenderDrawLine(ren, i, 0, i, graphSizeh);
 			}
 			/*creates horizontal red line every 1V with 10-bit 0-5V adc*/
 			for (j = graphSizeh; j >= 0; j -= 204.6) {
-				SDL_RenderDrawLine(ren, 0, j, (data->numOfPoints - 1), j);
+				SDL_RenderDrawLine(ren, 0, j, (data->numOfPoints), j);
 			}
 			/*set the color of the points*/
 			SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
 			/*plot data points and connect them, but not last one since it's garbo*/
-			SDL_RenderDrawLines(ren, data->points, (data->numOfPoints - 1));
+			SDL_RenderDrawLines(ren, data->points, (data->numOfPoints));
 			/*put the render color back to white*/
 			data->updated = 0;
+			SDL_RenderPresent(ren);
 		}
 		if(!data->run) {
 			_beginthread(Gather, 0, data);
 			data->run = 1;
 		}
-		SDL_RenderPresent(ren);
+
 	}
+	while (data->run)		//wait for gather thread to complete
+		Sleep(10);
+
 	SDL_Quit();
 	CloseHandle(data->port);//Closing the Serial Port
 	return 0;

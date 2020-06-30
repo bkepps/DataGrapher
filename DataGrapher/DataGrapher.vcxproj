@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gather.c" />
+    <ClCompile Include="graphupdate.c" />
     <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>

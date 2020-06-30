@@ -3,12 +3,10 @@
 
 void Gather(gather_data* data) {
 	Uint32 pointCurrent = 0;
-	Uint8 Status;
-	char* file_rBuf = malloc(sizeof(char));
-	char* dataBuf = malloc(sizeof(char) * 10);
+	char file_rBuf;
+	char dataBuf[10];
 	Uint8 end = 0;			//BOOL
 	DWORD NoBytesRead;						// Bytes read by ReadFile()
-	char  TempChar;							// Temperory Character
 	int i = 0;
 
 	
@@ -18,15 +16,18 @@ void Gather(gather_data* data) {
 		end = 0;
 		/*step through chars and append to data_rBuf until a return char is found. return char is last char in string*/
 		do {
-			ReadFile(data->port, file_rBuf, sizeof(TempChar), &NoBytesRead, NULL);		//returns 0 when no chars left to read, will store one more point, we'll ignore it later
-			if (*file_rBuf == '\r')
+			ReadFile(data->port, &file_rBuf, sizeof(char), &NoBytesRead, NULL);		//returns 0 when no chars left to read, will store one more point, we'll ignore it later
+			if (file_rBuf == '\r')
 				end = 1;
-			dataBuf[i++] = *file_rBuf;
+			if (i == 10)				//prevent writing past bounds of dataBuf if no \r is reached -- this seems to occur if port is used too soon after initialization, it reads garbage until actual data is recieved
+				break;
+			dataBuf[i] = file_rBuf;
+			i++;
 		} while (!end);
 		/*convert data_buf to int. atoi ignores \r at end of string*/
 
-		data->points[pointCurrent].y = atoi(dataBuf);
-		data->points[pointCurrent].x = ++pointCurrent;
+		data->points[pointCurrent].y = data->graphHeight - atoi(dataBuf);
+		data->points[pointCurrent].x = pointCurrent++;
 		if (!NoBytesRead)
 			--pointCurrent;
 	}
@@ -36,5 +37,5 @@ void Gather(gather_data* data) {
 
 
 	//free(dataBuf);
-	free(file_rBuf);
+	//free(file_rBuf);
 }
