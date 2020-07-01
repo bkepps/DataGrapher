@@ -1,29 +1,20 @@
-
-
 #include "MainHead.h"
 
 int main() {
-	int i = 0;
-	float j;
 	const char* title = "Data Plotter V2";
-	Uint32 width = 380;
+	Uint32 width = 800;
 	Uint32 height = 700;
-	Uint32 graphSizew = 380;
-	Uint32 graphSizeh = 600;
 	Uint8 quit = 0;			//BOOL
 	SDL_Event event;
-	//FILE* data;				//data stored as chars terminated with \r, must have \r at end of last line
-	int datapoints[1000];
-
-	DWORD dwEventMask;						// Event mask to trigger
-	char  SerialBuffer[256];				// Buffer Containing Rxed Data
 
 	gather_data* data = malloc(sizeof(gather_data));
-	data->numOfPoints = 100;
+	data->graphHeight = 400;
+	data->graphWidth = 500;
+	data->numOfPoints = data->graphWidth + 20;
 	data->points = malloc(sizeof(SDL_Point) * data->numOfPoints);
 	data->updated = 0;
 	data->run = 0;
-	data->graphHeight = graphSizeh;
+
 
 	/*initialize SDL*/
 	SDL_Init(SDL_INIT_VIDEO);
@@ -48,7 +39,7 @@ int main() {
 
 	GetCommState(data->port, &dcbSerialParams);      //retreives  the current settings
 
-	dcbSerialParams.BaudRate = CBR_9600;      // Setting BaudRate = 9600
+	dcbSerialParams.BaudRate = CBR_256000;      // Setting BaudRate = 9600
 	dcbSerialParams.ByteSize = 8;             // Setting ByteSize = 8
 	dcbSerialParams.StopBits = ONESTOPBIT;    // Setting StopBits = 1
 	dcbSerialParams.Parity = NOPARITY;        // Setting Parity = None 

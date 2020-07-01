@@ -1,33 +1,43 @@
+/*draws graph with points to renderer when given gather_data* and SDL_Renderer*/
 #include "MainHead.h"
 
 void GraphUpdate(gather_data* data, SDL_Renderer* ren) {
-	int j;
+	float j;
+	int i;
+	Uint16 hDiv10 = data->graphHeight / 10;
+	Uint16 hDiv100 = data->graphHeight / 100;
+	Uint16 wDiv10 = data->graphWidth / 10;
+	Uint16 wDiv100 = data->graphWidth / 100;
+
+	SDL_SetRenderDrawColor(ren, 220, 220, 220, 255);
+	/*creates horizontal lines about 50mV apart*/
+	for (j = data->graphHeight; j >= 0; j -= hDiv100) {
+		SDL_RenderDrawLine(ren, 0, j, (data->graphWidth), j);
+	}
+	/*creates vertical lines 10 points apart*/
+	for (i = 0; i <= (data->graphWidth); i += wDiv100) {
+		SDL_RenderDrawLine(ren, i, 0, i, data->graphHeight);
+	}
 
 	SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
-	/*creates horizontal lines about 50mV apart*/
-	for (j = data->graphHeight; j >= 0; j -= 10.23) {
-		SDL_RenderDrawLine(ren, 0, j, (data->numOfPoints), j);
-	}
 	/*creates darker horizontal line every 1V with 10-bit 0-5V adc*/
-	for (j = data->graphHeight; j >= 0; j -= 204.6) {
-		SDL_RenderDrawLine(ren, 0, j, (data->numOfPoints), j);
+	for (j = data->graphHeight; j >= 0; j -= hDiv10) {
+		SDL_RenderDrawLine(ren, 0, j, (data->graphWidth), j);
+	}
+	/*creates darker vertical lines every 50 points*/
+	for (i = 0; i <= (data->graphWidth); i += wDiv10) {
+		SDL_RenderDrawLine(ren, i, 0, i, data->graphHeight);
 	}
 
-	/*creates vertical lines 12 points apart*/
-	for (j = 0; j <= (data->numOfPoints); j += 12) {
-		SDL_RenderDrawLine(ren, j, 0, j, data->graphHeight);
-	}
-	/*creates darker vertical lines every 60 points*/
+	/*draw crosshairs*/
 	SDL_SetRenderDrawColor(ren, 150, 150, 150, 255);
-	for (j = 0; j <= (data->numOfPoints); j += 60) {
-		SDL_RenderDrawLine(ren, j, 0, j, data->graphHeight);
-	}
-
+	SDL_RenderDrawLine(ren, 0, data->graphHeight / 2, data->graphWidth, data->graphHeight / 2);
+	SDL_RenderDrawLine(ren, data->graphWidth / 2, 0, data->graphWidth / 2, data->graphHeight);
 
 	/*set the color of the points*/
 	SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
 	/*plot data points and connect them*/
-	SDL_RenderDrawLines(ren, data->points, (data->numOfPoints));
+	SDL_RenderDrawLines(ren, data->points, (data->graphWidth));
 
 	data->updated = 0;
 }

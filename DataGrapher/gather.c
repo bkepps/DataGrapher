@@ -28,7 +28,7 @@ void Gather(gather_data* data) {
 
 		data->points[pointCurrent].y = data->graphHeight - atoi(dataBuf);
 		data->points[pointCurrent].x = pointCurrent++;
-		if (!NoBytesRead)
+		if (!NoBytesRead || i == 10)
 			--pointCurrent;
 	}
 	data->updated = 1;
