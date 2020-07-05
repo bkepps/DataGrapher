@@ -14,6 +14,7 @@ int main() {
 	data->points = malloc(sizeof(SDL_Point) * data->numOfPoints);
 	data->updated = 0;
 	data->run = 0;
+	data->valueMax = 1023;
 
 
 	/*initialize SDL*/
@@ -100,6 +101,6 @@ int main() {
 		Sleep(10);
 
 	SDL_Quit();
-	CloseHandle(data->port);//Closing the Serial Port
+	CloseHandle(data->port);//Close the Serial Port
 	return 0;
 }

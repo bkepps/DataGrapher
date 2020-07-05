@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <Windows.h>
+#include <math.h>
 
 typedef struct {
 	Uint32 numOfPoints;
@@ -11,6 +12,7 @@ typedef struct {
 	Uint16 graphWidth;
 	SDL_Point* points;		
 	HANDLE port;			//handle for serial port --note: HANDLE is 4 bytes in size
+	Uint16 valueMax;			//largest possible value from ADC
 } gather_data;
 
  void Gather(gather_data* data);
