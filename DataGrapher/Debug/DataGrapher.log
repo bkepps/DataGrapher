@@ -1,11 +1,14 @@
 ﻿  Main.c
 C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(4,12): warning C4026: function declared with formal parameter list
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(39,54): warning C4267: '=': conversion from 'size_t' to 'Uint8', possible loss of data
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(45,30): warning C4013: 'atoi' undefined; assuming extern returning int
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(52,15): warning C4022: 'free': pointer mismatch for actual parameter 1
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(79,40): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(80,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(80,44): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(83,18): warning C4018: '<=': signed/unsigned mismatch
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(88,18): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(41,54): warning C4267: '=': conversion from 'size_t' to 'Uint8', possible loss of data
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(47,30): warning C4013: 'atoi' undefined; assuming extern returning int
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(54,15): warning C4022: 'free': pointer mismatch for actual parameter 1
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(81,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(81,43): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(82,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(82,48): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(94,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(94,43): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(95,33): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(95,48): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
   DataGrapher.vcxproj -> C:\Users\bensk\source\repos\DataGrapher\Debug\DataGrapher.exe

@@ -7,8 +7,10 @@ int main() {
 	const char* title = "Data Plotter V0.9.2";
 	Uint32* width = malloc(sizeof(Uint32));
 	Uint32* height = malloc(sizeof(Uint32));
-	*width = 388;
-	*height = 450;
+	*width = 380;
+	*height = 500;
+	int graphSizew = 380;
+	int graphSizeh = 500;
 	Uint8 quit = 0;			//BOOL
 	Uint8 charRead = 1;		//BOOL, 0 when no chars left to read
 	Uint8 end = 0;			//BOOL
@@ -76,17 +78,21 @@ int main() {
 			/*set color for grid*/
 			SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
 			/*creates horizontal lines about 50mV apart*/
-			for (j = 5; j <= *height; j += 10.23) {
-				SDL_RenderDrawLine(ren, 0, j, *width, j);
+			for (j = graphSizeh; j >= 0; j -= 10.23) {
+				SDL_RenderDrawLine(ren, 0, j, graphSizew, j);
 			}
 			/*creates vertical lines 12 points (at 10 seconds per point, 2 minutes per line) apart*/
-			for (i = 0; i <= *width; i += 12) {
-				SDL_RenderDrawLine(ren, i, 0, i, *height);
+			for (i = 0; i <= graphSizew; i += 12) {
+				SDL_RenderDrawLine(ren, i, 0, i, graphSizeh);
 			}
 			/*creates red vertical lines every 10 minutes at 6 samples per second*/
-			SDL_SetRenderDrawColor(ren, 255, 20, 20, 255);
-			for (i = 0; i <= *width; i += 60) {
-				SDL_RenderDrawLine(ren, i, 0, i, *height);
+			SDL_SetRenderDrawColor(ren, 255, 100, 100, 255);
+			for (i = 0; i <= graphSizew; i += 60) {
+				SDL_RenderDrawLine(ren, i, 0, i, graphSizeh);
+			}
+			/*creates horizontal red line every 1V with 10-bit 0-5V adc*/
+			for (j = graphSizeh; j >= 0; j -= 204.6) {
+				SDL_RenderDrawLine(ren, 0, j, graphSizew, j);
 			}
 			/*set the color of the points*/
 			SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
