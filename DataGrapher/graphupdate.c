@@ -1,7 +1,7 @@
 /*draws graph with points to renderer when given gather_data* and SDL_Renderer*/
 #include "MainHead.h"
 
-void GraphUpdate(gather_data* data, SDL_Renderer* ren) {
+void graph_Update(gather_data* data, SDL_Renderer* ren) {
 	float j;
 	int i;
 	Uint16 hDiv10 = data->graphHeight / 10;

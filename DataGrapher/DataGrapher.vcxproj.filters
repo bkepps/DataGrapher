@@ -18,10 +18,13 @@
     <ClCompile Include="Main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gather.c">
+    <ClCompile Include="graphupdate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="graphupdate.c">
+    <ClCompile Include="data.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="init.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
