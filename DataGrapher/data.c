@@ -18,7 +18,7 @@ void data_Gather(gather_data* data) {
 		/*step through chars and append to data_rBuf until a return char is found. return char is last char in string*/
 		do {
 			ReadFile(data->port, &file_rBuf, sizeof(char), &NumBytesRead, NULL);		//returns 0 when no chars left to read, will store one more point, we'll ignore it later
-			if (file_rBuf == '\r')
+			if (file_rBuf == '\n')
 				end = 1;
 			if (i == 10)				//prevent writing past bounds of dataBuf if no \r is reached -- this seems to occur if port is used too soon after initialization, it reads garbage until actual data is recieved
 				break;

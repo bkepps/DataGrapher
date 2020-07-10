@@ -5,6 +5,7 @@ int main() {
 	Uint32 width = 800;
 	Uint32 height = 700;
 	Uint8 quit = 0;			//BOOL
+	Uint8 status = 0;		//BOOL
 	SDL_Event event;
 
 	gather_data* data = init_gather_data();
@@ -16,7 +17,9 @@ int main() {
 	Uint32* windowID = malloc(sizeof(Uint32));
 	*windowID = SDL_GetWindowID(win);
 
-	init_port(data);
+	status = init_port(data);
+	if (status)
+		return status;
 
 	/*enter window loop*/
 	while (!quit) {
