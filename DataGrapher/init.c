@@ -16,7 +16,7 @@ gather_data* init_gather_data() {
 
 int init_port(gather_data* data) {
 	/*open serial port*/
-	data->port = CreateFile(L"COM3",                  // Name of the Port to be Opened
+	data->port = CreateFile(L"COM4",                  // Name of the Port to be Opened
 		GENERIC_READ,							// Read Access
 		0,                            // No Sharing, ports cant be shared
 		NULL,                         // No Security

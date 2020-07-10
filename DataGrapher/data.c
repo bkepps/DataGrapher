@@ -26,11 +26,10 @@ void data_Gather(gather_data* data) {
 			i++;
 		} while (!end);
 		/*convert data_buf to int. atoi ignores \r at end of string*/
-		math = 
 		data->points[pointCurrent].y = data->graphHeight - (atoi(dataBuf) * ((float) data->graphHeight / (float) data->valueMax));
 		data->points[pointCurrent].x = pointCurrent++;
 		if (!NumBytesRead || i == 10)
-			--pointCurrent;
+			pointCurrent--;
 	}
 	data->updated = 1;
 	data->run = 0;
