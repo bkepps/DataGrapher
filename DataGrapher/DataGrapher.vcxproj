@@ -143,10 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BitsNBobs.c" />
     <ClCompile Include="data.c" />
     <ClCompile Include="graphupdate.c" />
     <ClCompile Include="init.c" />
     <ClCompile Include="Main.c" />
+    <ClCompile Include="Slider.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainHead.h" />

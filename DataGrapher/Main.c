@@ -7,8 +7,7 @@ int main() {
 	Uint8 quit = 0;			//BOOL
 	Uint8 status = 0;		//BOOL
 	SDL_Event event;
-
-	gather_data* data = init_gather_data();
+	
 
 	/*initialize SDL*/
 	SDL_Init(SDL_INIT_VIDEO);
@@ -17,6 +16,8 @@ int main() {
 	Uint32* windowID = malloc(sizeof(Uint32));
 	*windowID = SDL_GetWindowID(win);
 
+	/*initialize structs and stuff*/
+	gather_data* data = init_gather_data();
 	status = init_port(data);
 	if (status)
 		return status;
