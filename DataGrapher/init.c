@@ -49,3 +49,22 @@ int init_port(gather_data* data) {
 		return 4;
 	return 0;
 }
+
+Slider* init_slider(Uint8 position, Uint8 numOfPositions, int height, int upperLeftX, int upperLeftY) {
+	Slider* slider = malloc(sizeof(Slider));
+	slider->move = 0;
+	slider->position = position;
+	slider->numOfPositions = numOfPositions;
+	slider->spaceBetweenPositions = 200 / slider->numOfPositions;
+
+	slider->slideRailRectangle.x = upperLeftX;
+	slider->slideRailRectangle.y = upperLeftY;
+	slider->slideRailRectangle.h = height;
+	slider->slideRailRectangle.w = 8;
+
+	slider->sliderArrowRectangle.h = 15;
+	slider->sliderArrowRectangle.w = 20;
+	slider->sliderArrowRectangle.x = slider->slideRailRectangle.x - (int)(slider->sliderArrowRectangle.w / 2);
+	slider->sliderArrowRectangle.y = slider->slideRailRectangle.y + (slider->spaceBetweenPositions * slider->position) - (int)(slider->sliderArrowRectangle.h / 2);
+	return slider;
+}
