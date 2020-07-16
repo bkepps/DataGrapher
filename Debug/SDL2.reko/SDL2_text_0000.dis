@@ -1,0 +1,211 @@
+word32 fn6C94103E(word32 ecx, word32 dwArg04, word32 dwArg08, word32 dwArg0C, ptr32 & ecxOut)
+// stackDelta: 0; fpuStackDelta: 0; fpuMaxParam: -1
+
+// MayUse:  ecx:[0..31] fs:[0..15] Stack +0004:[0..31] Stack +0008:[0..31] Stack +000C:[0..31]
+// LiveOut: eax ecx
+// Trashed: SCZO eax ecx edx Top
+// Preserved: ebp ebx esi esp
+fn6C94103E_entry:
+l6C94103E:
+	word32 eax_15 = dwArg08
+	branch dwArg08 != 0x00000000 l6C94110A
+l6C94110A:
+	branch dwArg08 != 0x00000001 l6C9411DB
+l6C941111:
+	word32 ebx_24 = Mem13[Mem13[fs:0x00000018:word32] + 0x00000004:word32]
+l6C94111A:
+	word32 ebx_33
+	__lock()
+	word32 eax_28
+	__cmpxchg(Mem26[0x6CA4FA38:word32], ebx_24, 0x00000000, out eax_28)
+	branch eax_28 == 0x00000000 l6C94113C
+l6C94113C:
+	ebx_33 = 0x00000000
+l6C941128:
+	branch ebx_24 == eax_28 l6C941140
+l6C941140:
+	ebx_33 = 0x00000001
+l6C941145:
+	branch Mem26[0x6CA4FA3C:word32] != 0x00000001 l6C94115B
+l6C94115B:
+	branch Mem26[0x6CA4FA3C:word32] != 0x00000000 l6C941182
+l6C941164:
+	Mem52[0x6CA4FA3C:word32] = 0x00000001
+	_initterm(0x6CA58008, 0x6CA58010)
+l6C941182:
+	branch Mem53[0x6CA4FA3C:word32] != 0x00000001 l6C9411A8
+l6C94118A:
+	_initterm(0x6CA58000, 0x6CA58004)
+	Mem61[0x6CA4FA3C:word32] = 0x00000002
+l6C9411A8:
+	branch ebx_33 != 0x00000000 l6C9411B2
+l6C9411AC:
+	Mem70[0x6CA4FA38:word32] = ebx_33
+l6C9411B2:
+	branch Mem72[0x6CA4A6B0:word32] == 0x00000000 l6C9411D5
+l6C9411BB:
+	ecx = fn6CA1EA81(ecx, dwArg04, dwArg04, 0x00000002, dwArg0C)
+l6C9411D5:
+	Mem106[0x6CA4D000:word32] = Mem104[0x6CA4D000:word32] + 0x00000001
+l6C94114D:
+	_amsg_exit(0x0000001F)
+l6C94112C:
+	Sleep(0x000003E8)
+l6C941051:
+	word32 edx_114 = Mem13[0x6CA4D000:word32]
+	branch edx_114 <= 0x00000000 l6C9411E0
+l6C94105F:
+	Mem119[0x6CA4D000:word32] = edx_114 - 0x00000001
+l6C941066:
+	__lock()
+	word32 eax_123
+	__cmpxchg(Mem122[0x6CA4FA38:word32], 0x00000001, 0x00000000, out eax_123)
+	word32 esp_132 = fp - 0x0000001C
+	branch eax_123 == 0x00000000 l6C941089
+l6C941089:
+	branch Mem122[0x6CA4FA3C:word32] == 0x00000002 l6C9410A4
+l6C9410A4:
+	word32 eax_134 = fn6CA1EAEC()
+	branch eax_134 == 0x00000000 l6C9410F3
+l6C9410B7:
+	word32 ebx_142 = fn6CA1EAEC()
+l6C9410C6:
+	word32 ecx_186
+	ebx_142 = ebx_142 - 0x00000004
+	branch eax_134 >u ebx_142 l6C9410D7
+l6C9410D7:
+	Mem149[esp_132:word32] = eax_134
+	free(Mem149[esp_132:(ptr32 void)])
+	Mem150[0x6CA4FA30:word32] = 0x00000000
+	Mem151[0x6CA4FA34:word32] = 0x00000000
+l6C9410F3:
+	Mem152[0x6CA4FA3C:word32] = 0x00000000
+	Mem157[0x6CA4FA38:word32] = 0x00000000
+l6C9411DB:
+	eax_15 = 0x00000001
+l6C9411E0:
+	ecxOut = ecx
+	return eax_15
+fn6C94103E_exit:
+l6C9410CD:
+	word32 eax_176 = Mem140[ebx_142:word32]
+	branch eax_176 == 0x00000000 l6C9410C6
+l6C9410D3:
+	word32 edx_184
+	call eax_176 (retsize: 4;)
+		uses: ecx:ecx_186,edx:edx_184,Stack +0008:dwArg04,Stack +000C:dwArg08,Stack +0010:dwArg0C
+		defs: ecx:ecx_186,edx:edx_184,esp:esp_182
+	ecx = ecx_186
+l6C941093:
+	_amsg_exit(0x0000001F)
+l6C941079:
+	Sleep(0x000003E8)
+
+
+word32 fn6C9411E9(word32 ecx, word32 edx, ptr32 & ebpOut)
+// stackDelta: 0; fpuStackDelta: 0; fpuMaxParam: -1
+
+// MayUse:  ecx:[0..31] edx:[0..31] fs:[0..15]
+// LiveOut: eax ebp
+// Trashed: SCZO eax ebp ebx ecx edi edx esi Top
+// Preserved: esp
+fn6C9411E9_entry:
+l6C9411E9:
+	word32 edx_134
+	word32 esi_20 = edx | Mem18[0x6CA4D000:word32]
+	Mem23[0x6CA23068:word32] = edx
+	word32 ebp_188 = fp - 4
+	word32 esp_19 = fp - 0x0000003C
+	branch esi_20 == 0x00000000 l6C94131C
+l6C941206:
+	word32 ebx_32
+	word32 edi_33
+	word32 esi_34
+	word32 ecx_125 = fn6CA1EC63(ecx, ecx, out ebx_32, out ebp_188, out esi_34, out edi_33)
+	branch ebx_32 >u 0x00000002 l6C94127E
+l6C941219:
+	branch fn6C94103E(ecx_125, esi_34, ebx_32, edi_33, out ecx_125) == 0x00000000 l6C94131C
+l6C941234:
+	word32 eax_63 = fn6CA1F600()
+	esp_19 = fp - 0x0000003C
+	branch eax_63 != 0x00000000 l6C941274
+l6C941274:
+	branch ebx_32 != 0x00000001 l6C94127E
+l6C941279:
+	fn6CA1E91D()
+	esp_19 = fp - 0x00000038
+l6C94127E:
+	Mem79[esp_19 + 0x00000008:word32] = edi_33
+	Mem81[esp_19 + 0x00000004:word32] = ebx_32
+	Mem83[esp_19:word32] = esi_34
+	word32 eax_84 = fn6CA1F608()
+	word32 esp_85 = esp_19 + 0x0000000C
+	edx_134 = eax_84
+	branch ebx_32 != 0x00000001 l6C9412E3
+l6C941298:
+	branch eax_84 != 0x00000000 l6C9412E3
+l6C9412E3:
+	branch ebx_32 == 0x00000000 l6C9412EC
+l6C9412E7:
+	branch ebx_32 != 0x00000003 l6C94131E
+l6C9412EC:
+	Mem103[esp_85 - 0x00000004:word32] = edi_33
+	Mem105[esp_85 - 0x00000008:word32] = ebx_32
+	Mem108[esp_85 - 0x0000000C:word32] = esi_34
+	Mem116[ebp_188 - 0x0000001C:word32] = fn6CA1F600()
+	Mem117[esp_85 - 0x00000004:word32] = edi_33
+	Mem118[esp_85 - 0x00000008:word32] = ebx_32
+	Mem119[esp_85 - 0x0000000C:word32] = esi_34
+	word32 ecx_240
+	word32 eax_126 = fn6C94103E(ecx_125, Mem119[esp_85 - 0x0000000C:word32], Mem119[esp_85 - 0x00000008:word32], Mem119[esp_85 - 0x00000004:word32], out ecx_240)
+	edx_134 = Mem119[ebp_188 - 0x0000001C:word32]
+	branch eax_126 != 0x00000000 l6C94131E
+l6C94129C:
+	Mem139[esp_85 - 0x00000004:word32] = edi_33
+	Mem140[esp_85 - 0x00000008:word32] = 0x00000000
+	Mem141[esp_85 - 0x0000000C:word32] = esi_34
+	fn6CA1F608()
+	Mem146[esp_85 - 0x00000004:word32] = edi_33
+	Mem147[esp_85 - 0x00000008:word32] = 0x00000000
+	Mem148[esp_85 - 0x0000000C:word32] = esi_34
+	fn6CA1F600()
+	Mem153[esp_85 - 0x00000004:word32] = edi_33
+	Mem154[esp_85 - 0x00000008:word32] = 0x00000000
+	Mem155[esp_85 - 0x0000000C:word32] = esi_34
+	word32 ecx_239
+	fn6C94103E(ecx_125, Mem155[esp_85 - 0x0000000C:word32], Mem155[esp_85 - 0x00000008:word32], Mem155[esp_85 - 0x00000004:word32], out ecx_239)
+l6C94124B:
+	branch ebx_32 != 0x00000001 l6C94131C
+l6C94131C:
+	edx_134 = 0x00000000
+l6C941252:
+	Mem175[ebp_188 - 0x0000001C:word32] = eax_63
+	word32 ecx_177
+	fn6C94103E(ecx_125, esi_34, 0x00000000, edi_33, out ecx_177)
+	edx_134 = Mem175[ebp_188 - 0x0000001C:word32]
+l6C94131E:
+	Mem187[0x6CA23068:word32] = 0xFFFFFFFF
+	ebpOut = Mem187[ebp_188:word32]
+	return edx_134
+fn6C9411E9_exit:
+
+
+BOOL DllMain(HANDLE hModule, DWORD dwReason, LPVOID lpReserved)
+// stackDelta: 16; fpuStackDelta: 0; fpuMaxParam: -1
+
+// MayUse:  fs:[0..15] Stack +0008:[0..31] Stack +000C:[0..31]
+// LiveOut: eax
+// Trashed: eax
+// Preserved:
+DllMain_entry:
+l6C941332:
+	Mem9[0x6CA4F9F0:word32] = 0x00000000
+	branch dwReason != 0x00000001 l6C94134D
+l6C941348:
+	fn6CA1E934()
+l6C94134D:
+	word32 ebp_26
+	return fn6C9411E9(lpReserved, dwReason, out ebp_26)
+DllMain_exit:
+
+
