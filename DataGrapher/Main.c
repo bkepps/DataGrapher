@@ -99,8 +99,10 @@ int main() {
 //	while (data->run)		//wait for gather thread to complete before quitting to avoid memory access error
 	//	Sleep(10);
 
-	//SDL_DestroyRenderer(ren);
-	//SDL_Quit();
-	//CloseHandle(data->port);//Close the Serial Port
+	SDL_DestroyRenderer(ren);
+	SDL_DestroyTexture(textures->sliderArrow);
+	SDL_DestroyTexture(textures->sliderRail);
+	SDL_Quit();
+	CloseHandle(data->port);//Close the Serial Port
 	return 0;
 }
