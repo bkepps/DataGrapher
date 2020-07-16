@@ -7,6 +7,7 @@ int main() {
 	Uint8 quit = 0;			//BOOL
 	Uint8 status = 0;		//BOOL
 	SDL_Event event;
+	SDL_Point mousePos;
 
 
 	const char* basePath = SDL_GetBasePath();
@@ -22,9 +23,9 @@ int main() {
 	/*initialize structs and stuff*/
 	Textures* textures = init_Textures(basePath, ren);		//load textures
 	gather_data* data = init_gather_data();
-	//status = init_port(data);
-	//if (status)
-	//	return status;
+	status = init_port(data);
+	if (status)
+		return status;
 
 	/*initialize gui elements*/
 	Slider* timeSlide = init_slider(0, 10, 200, (width - 50), 50);
@@ -43,9 +44,35 @@ int main() {
 					height = event.window.data2;
 
 					/* update all elements who's position is changed by a window resize */
-
+					Slider_UpdatePosition(width - 50, NULL, timeSlide);
 					break;
 				}
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					SDL_GetMouseState(&mousePos.x, &mousePos.y);
+					/*if the left mouse button is pushed down while over the slider rail or arrow, begin slider move event*/
+					if (SDL_PointInRect(&mousePos, &timeSlide->slideRailRectangle) || SDL_PointInRect(&mousePos, &timeSlide->sliderArrowRectangle))
+						timeSlide->move = 1;
+				}
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					SDL_GetMouseState(&mousePos.x, &mousePos.y);
+					/*if a slider motion event is occuring, and the mouse button goes up, end move event, and set final position*/
+					if (timeSlide->move) {
+						timeSlide->move = 0;
+						Slider_MoveWithMouse(mousePos, timeSlide);
+					}
+				}
+				break;
+
+			case SDL_MOUSEMOTION:
+				mousePos.y = event.motion.y;
+				/*if slider move event is underway, have slider arrow follow the mouse*/
+				if (timeSlide->move)
+					Slider_MoveWithMouse(mousePos, timeSlide);
 				break;
 			}
 			
@@ -53,16 +80,13 @@ int main() {
 
 		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 		SDL_RenderClear(ren);
+		/*render any and all GUI elements other than graph*/
 		Slider_Render(ren, textures, timeSlide);
+
 		/*update graph if data points have been updated / gather thread is complete*/
 		if (data->updated) {
-
-			/*render everything*/
-
-
-			//graph_Update(data, ren);
-
-
+			/*render graph*/
+			graph_Update(data, ren);
 		}
 		/*start new thread to update data points if gather thread is not running*/
 		//if(!data->run) {
@@ -70,7 +94,6 @@ int main() {
 			//data->run = 1;
 		//}
 		SDL_RenderPresent(ren);
-
 	}
 
 //	while (data->run)		//wait for gather thread to complete before quitting to avoid memory access error

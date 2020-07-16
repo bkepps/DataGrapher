@@ -25,3 +25,16 @@ int Slider_Render(SDL_Renderer *ren, Textures* textures, Slider* slide) {
 
 	return 0;
 }
+
+Uint8 Slider_UpdatePosition(Uint32 upperLeftX, Uint32 upperLeftY, Slider* slide) {
+	if (upperLeftX != NULL) {
+		slide->slideRailRectangle.x = upperLeftX;
+		slide->sliderArrowRectangle.x = slide->slideRailRectangle.x - (int)(slide->sliderArrowRectangle.w / 2);
+	}
+	if (upperLeftY != NULL) {
+		slide->slideRailRectangle.y = upperLeftY;
+		slide->sliderArrowRectangle.y = slide->slideRailRectangle.y + (slide->spaceBetweenPositions * slide->position) - (int)(slide->sliderArrowRectangle.h / 2);
+	}	
+	
+	return 0;
+}

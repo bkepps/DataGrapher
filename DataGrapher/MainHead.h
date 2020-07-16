@@ -63,3 +63,5 @@ typedef struct {
  int Slider_MoveWithMouse(SDL_Point, Slider*);
 
  int Slider_Render(SDL_Renderer*, Textures*, Slider*);
+/*update position of slider on screen, for x or y give NULL if no update is desired*/
+ Uint8 Slider_UpdatePosition(Uint32 upperLeftX, Uint32 upperLeftY, Slider* slide);
