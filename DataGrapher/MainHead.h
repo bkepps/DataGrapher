@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL.h>
+#include <SDL_quit.h>
+#include <SDL_render.h>
 #include <stdio.h>
 #include <Windows.h>
 #include <math.h>
@@ -31,6 +33,14 @@ typedef struct {
 	Uint8 move;								//BOOL
 } Slider;
 
+/*
+contains all textures required
+*/
+typedef struct {
+	SDL_Texture* sliderArrow;
+	SDL_Texture* sliderRail;
+} Textures;
+
 //data.c
  void data_Gather(gather_data* data);
 
@@ -46,8 +56,10 @@ typedef struct {
 
  Slider* init_slider(Uint8 position, Uint8 numOfPositions, int height, int upperLeftX, int upperLeftY);
 
+ Textures* init_Textures(char* basePath, SDL_Renderer* ren);
+
  //Slider.c
  /*call to move slider, not necessarilly with mouse, it just needs a point*/
  int Slider_MoveWithMouse(SDL_Point, Slider*);
 
- int Slider_Render(SDL_Renderer*, SDL_Texture*, SDL_Texture*, Slider*);
+ int Slider_Render(SDL_Renderer*, Textures*, Slider*);

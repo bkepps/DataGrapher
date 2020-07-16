@@ -33,11 +33,6 @@ void data_Gather(gather_data* data) {
 	}
 	data->updated = 1;
 	data->run = 0;
-
-
-
-	//free(dataBuf);
-	//free(file_rBuf);
 }
 
 int data_Process(gather_data* data) {

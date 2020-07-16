@@ -68,3 +68,21 @@ Slider* init_slider(Uint8 initPosition, Uint8 numOfPositions, int height, int up
 	slider->sliderArrowRectangle.y = slider->slideRailRectangle.y + (slider->spaceBetweenPositions * slider->position) - (int)(slider->sliderArrowRectangle.h / 2);
 	return slider;
 }
+
+Textures* init_Textures(char* basePath, SDL_Renderer *ren) {
+	Textures* textures = malloc(sizeof(Textures));
+
+	const char* returnedFilePath = BitsNBobs_append(basePath, "Resources\\SliderArrow.bmp");			//load arrow for sliders to texture
+	SDL_Surface* sliderArrowsurf = SDL_LoadBMP(returnedFilePath);
+	free(returnedFilePath);
+	textures->sliderArrow = SDL_CreateTextureFromSurface(ren, sliderArrowsurf);
+	SDL_FreeSurface(sliderArrowsurf);
+
+	returnedFilePath = BitsNBobs_append(basePath, "Resources\\SliderRail.bmp");				//load rail arrow slides on
+	SDL_Surface* sliderRailsurf = SDL_LoadBMP(returnedFilePath);
+	free((void*)returnedFilePath);
+	textures->sliderRail = SDL_CreateTextureFromSurface(ren, sliderRailsurf);
+	SDL_FreeSurface(sliderRailsurf);
+
+	return textures;
+}
