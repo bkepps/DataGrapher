@@ -2,6 +2,7 @@
 #include "MainHead.h"
 
 void data_Gather(gather_data* data) {
+	SDL_LockMutex(data->dataMutex);
 	Uint32 pointCurrent = 0;
 	char file_rBuf;
 	char dataBuf[10];
@@ -31,8 +32,8 @@ void data_Gather(gather_data* data) {
 		if (!NumBytesRead || i == 10)
 			pointCurrent--;
 	}
-	data->updated = 1;
-	data->run = 0;
+	data->run = 1;
+	SDL_UnlockMutex(data->dataMutex);
 }
 
 int data_Process(gather_data* data) {

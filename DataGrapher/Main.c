@@ -9,6 +9,9 @@ int main() {
 	SDL_Event event;
 	SDL_Point mousePos;
 
+	//variables to keep track of threads
+	SDL_Thread* gatherThread;
+	
 
 	const char* basePath = SDL_GetBasePath();
 	char* rBasePath = malloc(sizeof(char) * strlen(basePath));
@@ -30,6 +33,7 @@ int main() {
 	/*initialize gui elements*/
 	Slider* timeSlide = init_slider(0, 10, 200, (width - 50), 50);
 
+	
 	/*enter window loop*/
 	while (!quit) {
 		while (SDL_PollEvent(&event)) {
@@ -77,31 +81,24 @@ int main() {
 			}
 			
 		}
-
-		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
-		SDL_RenderClear(ren);
-		/*render any and all GUI elements other than graph*/
-		Slider_Render(ren, textures, timeSlide);
-
-		/*update graph if data points have been updated / gather thread is complete*/
-		if (data->updated) {
-			/*render graph*/
-			graph_Update(data, ren);
+		if (!SDL_TryLockMutex(data->dataMutex)) {
+			if (data->run) {
+				SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+				SDL_RenderClear(ren);
+				/*render any and all GUI elements other than graph*/
+				Slider_Render(ren, textures, timeSlide);
+				/*render graph*/
+				//graph_Update(data, ren);
+				//SDL_RenderPresent(ren);
+			}
+			SDL_UnlockMutex(data->dataMutex);
+			gatherThread = SDL_CreateThread(data_Gather, "data_Gather", data);
+			SDL_DetachThread(gatherThread);
 		}
-		/*start new thread to update data points if gather thread is not running*/
-		//if(!data->run) {
-			//_beginthread(data_Gather, 0, data);
-			//data->run = 1;
-		//}
-		SDL_RenderPresent(ren);
 	}
 
-//	while (data->run)		//wait for gather thread to complete before quitting to avoid memory access error
-	//	Sleep(10);
+		//wait for gather thread to complete before quitting to avoid memory access error
 
-	SDL_DestroyRenderer(ren);
-	SDL_DestroyTexture(textures->sliderArrow);
-	SDL_DestroyTexture(textures->sliderRail);
 	SDL_Quit();
 	CloseHandle(data->port);//Close the Serial Port
 	return 0;

@@ -5,9 +5,9 @@ void graph_Update(gather_data* data, SDL_Renderer* ren) {
 	float j;
 	int i;
 	Uint16 hDiv10 = data->graphHeight / 10;
-	Uint16 hDiv100 = data->graphHeight / 100;
+	Uint16 hDiv100 = data->graphHeight / 80;
 	Uint16 wDiv10 = data->graphWidth / 10;
-	Uint16 wDiv100 = data->graphWidth / 100;
+	Uint16 wDiv100 = data->graphWidth / 80;
 
 	SDL_SetRenderDrawColor(ren, 220, 220, 220, 255);
 	/*creates horizontal lines about 50mV apart*/

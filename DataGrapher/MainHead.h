@@ -12,13 +12,14 @@ struct that stores one set of points and related data
 typedef struct {
 	Uint32 numOfPoints;
 	Uint8 updated;			//BOOL true after points is filled
-	Uint8 run;				//BOOL true while Gather thread running
+	Uint8 run;				//BOOL true after Gather thread has run
 	Uint16 graphHeight;
 	Uint16 graphWidth;
 	SDL_Point* points;		//data points ready to be graphed
 	Uint16* dataRaw;		//unprocessed data
 	HANDLE port;			//handle for serial port --note: HANDLE is 4 bytes in size
 	Uint16 valueMax;		//largest possible value from ADC
+	SDL_mutex* dataMutex;
 } gather_data;
 
 /*

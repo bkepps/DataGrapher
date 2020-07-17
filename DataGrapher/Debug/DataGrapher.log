@@ -1,6 +1,7 @@
 ﻿  Main.c
 C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(3,12): warning C4026: function declared with formal parameter list
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(24,45): warning C4090: 'function': different 'const' qualifiers
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(47,44): warning C4047: 'function': 'Uint32' differs in levels of indirection from 'void *'
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(47,44): warning C4024: 'Slider_UpdatePosition': different types for formal and actual parameter 2
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(27,45): warning C4090: 'function': different 'const' qualifiers
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(51,44): warning C4047: 'function': 'Uint32' differs in levels of indirection from 'void *'
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(51,44): warning C4024: 'Slider_UpdatePosition': different types for formal and actual parameter 2
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(95,19): warning C4133: 'function': incompatible types - from 'void (__cdecl *)(gather_data *)' to 'SDL_ThreadFunction'
   DataGrapher.vcxproj -> C:\Users\bensk\source\repos\DataGrapher\Debug\DataGrapher.exe

@@ -10,6 +10,7 @@ gather_data* init_gather_data() {
 	data->updated = 0;
 	data->run = 0;
 	data->valueMax = 1023;
+	data->dataMutex = SDL_CreateMutex();
 
 	return data;
 }
