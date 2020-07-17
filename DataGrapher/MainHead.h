@@ -11,16 +11,19 @@ struct that stores one set of points and related data
 */
 typedef struct {
 	Uint32 numOfPoints;
-	Uint8 updated;			//BOOL true after points is filled
-	Uint8 run;				//BOOL true after Gather thread has run
 	Uint16 graphHeight;
 	Uint16 graphWidth;
 	SDL_Point* points;		//data points ready to be graphed
-	Uint16* dataRaw;		//unprocessed data
-	HANDLE port;			//handle for serial port --note: HANDLE is 4 bytes in size
 	Uint16 valueMax;		//largest possible value from ADC
-	SDL_mutex* dataMutex;
-} gather_data;
+	SDL_mutex* Mutex;
+} data_processed;
+
+typedef struct {
+	Uint32 numOfPoints;
+	HANDLE port;
+	SDL_mutex* Mutex;
+	Uint16* rawData;
+} data_raw;
 
 /*
 struct with all key elements of a slide selector
@@ -43,19 +46,19 @@ typedef struct {
 } Textures;
 
 //data.c
- void data_Gather(gather_data* data);
+ void data_Gather(data_raw* data);
 
- int data_Process(gather_data* data);
+ int data_Process(data_raw* rawData, data_processed* processedData);
 
 //graph.c
- void graph_Update(gather_data* data, SDL_Renderer* ren);
+ void graph_Update(data_processed* data, SDL_Renderer* ren);
 
 //init.c
- gather_data* init_gather_data();
+ data_raw* init_data_raw(data_processed* processed_data);
 
- int init_port(gather_data* data);
+ data_processed* init_data_processed();
 
- Slider* init_slider(Uint8 position, Uint8 numOfPositions, int height, int upperLeftX, int upperLeftY);
+ Slider* init_slider(Uint8 initPosition, Uint8 numOfPositions, Uint32 height, Uint32 upperLeftX, Uint32 upperLeftY);
 
  Textures* init_Textures(char* basePath, SDL_Renderer* ren);
 

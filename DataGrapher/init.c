@@ -1,21 +1,27 @@
 #include "MainHead.h"
 
-gather_data* init_gather_data() {
-	gather_data* data = malloc(sizeof(gather_data));
+data_processed* init_data_processed() {
+	data_processed* data = malloc(sizeof(data_processed));
 	data->graphHeight = 400;
 	data->graphWidth = 500;
 	data->numOfPoints = data->graphWidth + 20;
-	data->dataRaw = malloc(sizeof(Uint16) * data->numOfPoints);
-	data->points = malloc(sizeof(SDL_Point) * data->graphWidth);
-	data->updated = 0;
-	data->run = 0;
+	data->points = malloc(sizeof(SDL_Point) * data->numOfPoints);
 	data->valueMax = 1023;
-	data->dataMutex = SDL_CreateMutex();
+	data->Mutex = SDL_CreateMutex();
 
 	return data;
 }
 
-int init_port(gather_data* data) {
+data_raw* init_data_raw(data_processed* processed_data) {
+	data_raw* data = malloc(sizeof(data_raw));
+	data->Mutex = SDL_CreateMutex();
+	data->numOfPoints = processed_data->numOfPoints;
+	init_port(data);
+	data->rawData = malloc(sizeof(Uint16) * data->numOfPoints);
+	return data;
+}
+
+int init_port(data_raw* data) {
 	/*open serial port*/
 	data->port = CreateFile(L"COM4",                  // Name of the Port to be Opened
 		GENERIC_READ,							// Read Access
@@ -37,16 +43,17 @@ int init_port(gather_data* data) {
 	dcbSerialParams.StopBits = ONESTOPBIT;    // Setting StopBits = 1
 	dcbSerialParams.Parity = NOPARITY;        // Setting Parity = None 
 
-	SetCommState(data->port, &dcbSerialParams);  //Configuring the port according to settings in DCB 
+	if (!SetCommState(data->port, &dcbSerialParams))  //Configuring the port according to settings in DCB 
+		return 3;
 
 	COMMTIMEOUTS timeouts = { 0 };
-	timeouts.ReadIntervalTimeout = 50;
-	timeouts.ReadTotalTimeoutConstant = 50;
-	timeouts.ReadTotalTimeoutMultiplier = 10;
+	timeouts.ReadIntervalTimeout = 200;
+	timeouts.ReadTotalTimeoutConstant = 1000;
+	timeouts.ReadTotalTimeoutMultiplier = 1000;
 	timeouts.WriteTotalTimeoutConstant = 50;
 	timeouts.WriteTotalTimeoutMultiplier = 10;
 
-	if (SetCommTimeouts(data->port, &timeouts) == FALSE)
+	if (!SetCommTimeouts(data->port, &timeouts))
 		return 4;
 	return 0;
 }
