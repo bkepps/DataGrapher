@@ -1,3 +1,4 @@
-﻿  init.c
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\init.c(99,23): warning C4090: 'function': different 'const' qualifiers
+﻿  Main.c
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(38,17): warning C4133: 'function': incompatible types - from 'void (__cdecl *)(data *)' to 'SDL_ThreadFunction'
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\Main.c(103,19): warning C4133: 'function': incompatible types - from 'void (__cdecl *)(data *)' to 'SDL_ThreadFunction'
   DataGrapher.vcxproj -> C:\Users\bensk\source\repos\DataGrapher\Debug\DataGrapher.exe
