@@ -103,6 +103,6 @@ int main(int argc, char** argv) {
 		//wait for gather thread to complete before quitting to avoid memory access error
 
 	SDL_Quit();
-	CloseHandle(data->port);//Close the Serial Port
+	CloseHandle(data->port);//Close the Serial Port 
 	return 0;
 }
