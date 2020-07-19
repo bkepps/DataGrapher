@@ -87,24 +87,17 @@ int main(int argc, char** argv) {
 		}
 		Status = SDL_TryLockMutex(data->Mutex);
 		if (Status == 0) {
-			//if (hasRun) {
-					//data_Process(rawData, data);
-				SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
-				SDL_RenderClear(ren);
-				/*render any and all GUI elements other than graph*/
-				Slider_Render(ren, textures, timeSlide);
-				/*render graph*/
-				graph_Update(data, ren);
-				SDL_RenderPresent(ren);
-			//}
-			//else
-				//hasRun = 1;
+			SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+			SDL_RenderClear(ren);
+			/*render any and all GUI elements other than graph*/
+			Slider_Render(ren, textures, timeSlide);
+			/*render graph*/
+			graph_Update(data, ren);
+			SDL_RenderPresent(ren);
 			SDL_UnlockMutex(data->Mutex);
 			gatherThread = SDL_CreateThread(data_Gather, "gather", (void*)data);
 			SDL_DetachThread(gatherThread);
 		}
-		//Slider_Render(ren, textures, timeSlide);
-		//SDL_RenderPresent(ren);
 	}
 
 		//wait for gather thread to complete before quitting to avoid memory access error
