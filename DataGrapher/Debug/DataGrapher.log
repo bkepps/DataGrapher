@@ -1,6 +1,3 @@
-﻿  graphupdate.c
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\graphupdate.c(15,31): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\graphupdate.c(15,54): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\graphupdate.c(25,31): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\bensk\source\repos\DataGrapher\DataGrapher\graphupdate.c(25,54): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+﻿  init.c
+C:\Users\bensk\source\repos\DataGrapher\DataGrapher\init.c(99,23): warning C4090: 'function': different 'const' qualifiers
   DataGrapher.vcxproj -> C:\Users\bensk\source\repos\DataGrapher\Debug\DataGrapher.exe

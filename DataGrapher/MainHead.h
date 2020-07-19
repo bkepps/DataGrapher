@@ -9,7 +9,7 @@
 /*
 struct that stores one set of points and related data
 */
-typedef struct {
+/*typedef struct {
 	Uint32 numOfPoints;
 	Uint16 graphHeight;
 	Uint16 graphWidth;
@@ -23,7 +23,17 @@ typedef struct {
 	HANDLE port;
 	SDL_mutex* Mutex;
 	Uint16* rawData;
-} data_raw;
+} data_raw;*/
+
+typedef struct {
+	Uint32 numOfPoints;		//number of points to be collected
+	Uint16 graphHeight;
+	Uint16 graphWidth;
+	SDL_Point* points;		//data points ready to be graphed
+	Uint16 valueMax;		//largest possible value from ADC
+	HANDLE port;
+	SDL_mutex* Mutex;
+} data;
 
 /*
 struct with all key elements of a slide selector
@@ -45,22 +55,31 @@ typedef struct {
 	SDL_Texture* sliderRail;
 } Textures;
 
-//data.c
- void data_Gather(data_raw* data);
+//BitsNBobs.c
+const char* BitsNBobs_append(const char* orgin, const char* toAppend);
 
- int data_Process(data_raw* rawData, data_processed* processedData);
+int BitsNBobs_mapTo(int x, int inMin, int inMax, int outMin, int outMax);
+
+//data.c
+ void data_Gather(data* grphInfo);
+
+ //int data_Process(data_raw* rawData, data_processed* processedData);
 
 //graph.c
- void graph_Update(data_processed* data, SDL_Renderer* ren);
+ void graph_Update(data* grphInfo, SDL_Renderer* ren);
 
 //init.c
- data_raw* init_data_raw(data_processed* processed_data);
+ //data_raw* init_data_raw(data_processed* processed_data);
 
- data_processed* init_data_processed();
+ //data_processed* init_data_processed();
+
+ data* init_data();
 
  Slider* init_slider(Uint8 initPosition, Uint8 numOfPositions, Uint32 height, Uint32 upperLeftX, Uint32 upperLeftY);
 
- Textures* init_Textures(char* basePath, SDL_Renderer* ren);
+ Textures* init_Textures(const char* basePath, SDL_Renderer* ren);
+
+ int init_port(data* grphInfo);
 
  //Slider.c
  /*call to move slider, not necessarilly with mouse, it just needs a point*/

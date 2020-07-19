@@ -4,7 +4,7 @@
     <SFA>
       <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
       <FILENAME>Main.c</FILENAME>
-      <LINE>21</LINE>
+      <LINE>24</LINE>
       <COLUMN>11</COLUMN>
     </SFA>
     <DEFECTCODE>6011</DEFECTCODE>
@@ -57,25 +57,55 @@
       <SFA>
         <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
         <FILENAME>Main.c</FILENAME>
-        <LINE>17</LINE>
-        <COLUMN>9</COLUMN>
+        <LINE>10</LINE>
+        <COLUMN>11</COLUMN>
       </SFA>
       <SFA>
         <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
         <FILENAME>Main.c</FILENAME>
-        <LINE>18</LINE>
+        <LINE>11</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
+        <FILENAME>Main.c</FILENAME>
+        <LINE>12</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
+        <FILENAME>Main.c</FILENAME>
+        <LINE>15</LINE>
         <COLUMN>13</COLUMN>
       </SFA>
       <SFA>
         <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
         <FILENAME>Main.c</FILENAME>
-        <LINE>19</LINE>
-        <COLUMN>15</COLUMN>
+        <LINE>17</LINE>
+        <COLUMN>13</COLUMN>
       </SFA>
       <SFA>
         <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
         <FILENAME>Main.c</FILENAME>
         <LINE>20</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
+        <FILENAME>Main.c</FILENAME>
+        <LINE>21</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
+        <FILENAME>Main.c</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
+        <FILENAME>Main.c</FILENAME>
+        <LINE>23</LINE>
         <COLUMN>9</COLUMN>
         <KEYEVENT>
           <ID>1</ID>
@@ -87,7 +117,7 @@
       <SFA>
         <FILEPATH>C:\Users\bensk\source\repos\DataGrapher\DataGrapher\</FILEPATH>
         <FILENAME>Main.c</FILENAME>
-        <LINE>21</LINE>
+        <LINE>24</LINE>
         <COLUMN>11</COLUMN>
         <KEYEVENT>
           <ID>2</ID>

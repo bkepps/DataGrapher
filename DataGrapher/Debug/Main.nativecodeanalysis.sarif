@@ -16,9 +16,9 @@
                   "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
                 },
                 "region": {
-                  "startLine": 21,
+                  "startLine": 24,
                   "startColumn": 3,
-                  "endLine": 21,
+                  "endLine": 24,
                   "endColumn": 30
                 }
               }
@@ -127,8 +127,8 @@
                             "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
                           },
                           "region": {
-                            "startLine": 17,
-                            "startColumn": 10
+                            "startLine": 10,
+                            "startColumn": 12
                           }
                         }
                       },
@@ -142,8 +142,8 @@
                             "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
                           },
                           "region": {
-                            "startLine": 18,
-                            "startColumn": 14
+                            "startLine": 11,
+                            "startColumn": 8
                           }
                         }
                       },
@@ -157,8 +157,8 @@
                             "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
                           },
                           "region": {
-                            "startLine": 19,
-                            "startColumn": 16
+                            "startLine": 12,
+                            "startColumn": 6
                           }
                         }
                       },
@@ -172,7 +172,82 @@
                             "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
                           },
                           "region": {
+                            "startLine": 15,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "index": 10,
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
+                          },
+                          "region": {
+                            "startLine": 17,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "index": 11,
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
+                          },
+                          "region": {
                             "startLine": 20,
+                            "startColumn": 10
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "index": 12,
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "index": 13,
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "index": 14,
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
+                          },
+                          "region": {
+                            "startLine": 23,
                             "startColumn": 10
                           }
                         },
@@ -184,14 +259,14 @@
                       "importance": "essential"
                     },
                     {
-                      "index": 10,
+                      "index": 15,
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
                             "uri": "file:///C:/Users/bensk/source/repos/DataGrapher/DataGrapher/Main.c"
                           },
                           "region": {
-                            "startLine": 21,
+                            "startLine": 24,
                             "startColumn": 12
                           }
                         },
@@ -218,7 +293,7 @@
       },
       "invocations": [
         {
-          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\bin\\HostX86\\x86\\c1.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x00D771A0 -il C:\\Users\\bensk\\AppData\\Local\\Temp\\_CL_807b1abfast -typedil -f Main.c -Ze -D_MSC_EXTENSIONS -Zp8 -Gs -pc \\:/ -D_MSC_VER=1926 -D_MSC_FULL_VER=192628806 -D_MSC_BUILD=0 -D_WIN32 -D_M_IX86=600 -D_M_IX86_FP=2 -I C:\\Users\\bensk\\source\\SDL2-2.0.10\\include -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -DWIN32 -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -FoDebug\\Main.obj -FdDebug\\vc142.pdb -Gd -analyze:projectdirectory C:\\Users\\bensk\\source\\repos\\DataGrapher\\DataGrapher\\ -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um",
+          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\bin\\HostX86\\x86\\c1.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x00B071A0 -il C:\\Users\\bensk\\AppData\\Local\\Temp\\_CL_8667b58dast -typedil -f Main.c -Ze -D_MSC_EXTENSIONS -Zp8 -Gs -pc \\:/ -D_MSC_VER=1926 -D_MSC_FULL_VER=192628806 -D_MSC_BUILD=0 -D_WIN32 -D_M_IX86=600 -D_M_IX86_FP=2 -I C:\\Users\\bensk\\source\\SDL2-2.0.10\\include -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -DWIN32 -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -FoDebug\\Main.obj -FdDebug\\vc142.pdb -Gd -analyze:projectdirectory C:\\Users\\bensk\\source\\repos\\DataGrapher\\DataGrapher\\ -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um",
           "executionSuccessful": true,
           "ruleConfigurationOverrides": [
             {

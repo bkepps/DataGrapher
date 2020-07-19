@@ -14,6 +14,7 @@ int Slider_MoveWithMouse(SDL_Point mousePos, Slider* slide) {
 		slide->position = 0;
 	}
 	/* set position of arrow on slider */
+#pragma warning( suppress : 4244 )
 	slide->sliderArrowRectangle.y = 50 + (slide->spaceBetweenPositions * slide->position) - (.5 * slide->sliderArrowRectangle.h);
 	return 0;
 }
@@ -27,11 +28,11 @@ int Slider_Render(SDL_Renderer *ren, Textures* textures, Slider* slide) {
 }
 
 Uint8 Slider_UpdatePosition(Uint32 upperLeftX, Uint32 upperLeftY, Slider* slide) {
-	if (upperLeftX != NULL) {
+	if (upperLeftX != (Uint32)NULL) {
 		slide->slideRailRectangle.x = upperLeftX;
 		slide->sliderArrowRectangle.x = slide->slideRailRectangle.x - (int)(slide->sliderArrowRectangle.w / 2);
 	}
-	if (upperLeftY != NULL) {
+	if (upperLeftY != (Uint32)NULL) {
 		slide->slideRailRectangle.y = upperLeftY;
 		slide->sliderArrowRectangle.y = slide->slideRailRectangle.y + (slide->spaceBetweenPositions * slide->position) - (int)(slide->sliderArrowRectangle.h / 2);
 	}	

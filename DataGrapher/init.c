@@ -1,6 +1,6 @@
 #include "MainHead.h"
 
-data_processed* init_data_processed() {
+/*data_processed* init_data_processed() {
 	data_processed* data = malloc(sizeof(data_processed));
 	data->graphHeight = 400;
 	data->graphWidth = 500;
@@ -19,11 +19,25 @@ data_raw* init_data_raw(data_processed* processed_data) {
 	init_port(data);
 	data->rawData = malloc(sizeof(Uint16) * data->numOfPoints);
 	return data;
+}*/
+
+data* init_data() {
+	data* grphInfo = malloc(sizeof(data));
+	grphInfo->graphHeight = 400;
+	grphInfo->graphWidth = 500;
+	grphInfo->numOfPoints = grphInfo->graphWidth + 20;
+	grphInfo->points = (SDL_Point*) malloc(sizeof(SDL_Point) * grphInfo->numOfPoints);
+	grphInfo->valueMax = 1023;
+	if (init_port(grphInfo))
+		return NULL;
+	grphInfo->Mutex = SDL_CreateMutex();
+
+	return grphInfo;
 }
 
-int init_port(data_raw* data) {
+int init_port(data* grphInfo) {
 	/*open serial port*/
-	data->port = CreateFile(L"COM4",                  // Name of the Port to be Opened
+	grphInfo->port = CreateFile(L"COM4",                  // Name of the Port to be Opened
 		GENERIC_READ,							// Read Access
 		0,                            // No Sharing, ports cant be shared
 		NULL,                         // No Security
@@ -31,19 +45,19 @@ int init_port(data_raw* data) {
 		0,                            // Non Overlapped I/O
 		NULL);                        // Null for Comm Devices
 
-	if (data->port == INVALID_HANDLE_VALUE)
+	if (grphInfo->port == INVALID_HANDLE_VALUE)
 		return 1;
 	DCB dcbSerialParams = { 0 };                         // Initializing DCB structure
 	dcbSerialParams.DCBlength = sizeof(dcbSerialParams);
 
-	GetCommState(data->port, &dcbSerialParams);      //retreives  the current settings
+	GetCommState(grphInfo->port, &dcbSerialParams);      //retreives  the current settings
 
 	dcbSerialParams.BaudRate = CBR_256000;      // Setting BaudRate = 9600
 	dcbSerialParams.ByteSize = 8;             // Setting ByteSize = 8
 	dcbSerialParams.StopBits = ONESTOPBIT;    // Setting StopBits = 1
 	dcbSerialParams.Parity = NOPARITY;        // Setting Parity = None 
 
-	if (!SetCommState(data->port, &dcbSerialParams))  //Configuring the port according to settings in DCB 
+	if (!SetCommState(grphInfo->port, &dcbSerialParams))  //Configuring the port according to settings in DCB 
 		return 3;
 
 	COMMTIMEOUTS timeouts = { 0 };
@@ -53,7 +67,7 @@ int init_port(data_raw* data) {
 	timeouts.WriteTotalTimeoutConstant = 50;
 	timeouts.WriteTotalTimeoutMultiplier = 10;
 
-	if (!SetCommTimeouts(data->port, &timeouts))
+	if (!SetCommTimeouts(grphInfo->port, &timeouts))
 		return 4;
 	return 0;
 }
@@ -77,7 +91,7 @@ Slider* init_slider(Uint8 initPosition, Uint8 numOfPositions, Uint32 height, Uin
 	return slider;
 }
 
-Textures* init_Textures(char* basePath, SDL_Renderer *ren) {
+Textures* init_Textures(const char* basePath, SDL_Renderer *ren) {
 	Textures* textures = malloc(sizeof(Textures));
 
 	const char* returnedFilePath = BitsNBobs_append(basePath, "Resources\\SliderArrow.bmp");			//load arrow for sliders to texture

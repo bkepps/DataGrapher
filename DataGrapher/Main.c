@@ -1,6 +1,6 @@
 #include "MainHead.h"
 
-int main() {
+int main(int argc, char** argv) {
 	const char* title = "Data Plotter V2";
 	Uint32 width = 800;
 	Uint32 height = 700;
@@ -9,12 +9,12 @@ int main() {
 	SDL_Event event;
 	SDL_Point mousePos;
 	Uint8 hasRun = 0;
+	int Status;
 
 	//variables to keep track of threads
 	SDL_Thread* gatherThread;
 
 	const char* basePath = SDL_GetBasePath();
-	char* rBasePath = malloc(sizeof(char) * strlen(basePath));
 
 	/*initialize SDL*/
 	SDL_Init(SDL_INIT_VIDEO);
@@ -25,12 +25,18 @@ int main() {
 
 	/*initialize structs and stuff*/
 	Textures* textures = init_Textures(basePath, ren);		//load textures
-	data_processed* data = init_data_processed();
-	data_raw* rawData = init_data_raw(data);
+	data* data = init_data();
+	if (data == NULL)
+		return 1;
+	//data_raw* data = init_data_raw(data);
 
 	/*initialize gui elements*/
 	Slider* timeSlide = init_slider(0, 10, 200, (width - 50), 50);
 
+	/*start first data colection*/
+	SDL_UnlockMutex(data->Mutex);
+	gatherThread = SDL_CreateThread(data_Gather, "Gather", (void*)data);
+	SDL_DetachThread(gatherThread);
 	
 	/*enter window loop*/
 	while (!quit) {
@@ -46,7 +52,7 @@ int main() {
 					height = event.window.data2;
 
 					/* update all elements who's position is changed by a window resize */
-					Slider_UpdatePosition(width - 50, NULL, timeSlide);
+					Slider_UpdatePosition(width - 50, (Uint32)NULL, timeSlide);
 					break;
 				}
 				break;
@@ -79,9 +85,10 @@ int main() {
 			}
 			
 		}
-		if (!SDL_TryLockMutex(rawData->Mutex)) {
-			if (hasRun) {
-				data_Process(rawData, data);
+		Status = SDL_TryLockMutex(data->Mutex);
+		if (Status == 0) {
+			//if (hasRun) {
+					//data_Process(rawData, data);
 				SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
 				SDL_RenderClear(ren);
 				/*render any and all GUI elements other than graph*/
@@ -89,18 +96,20 @@ int main() {
 				/*render graph*/
 				graph_Update(data, ren);
 				SDL_RenderPresent(ren);
-			}
-			else
-				hasRun = 1;
-			SDL_UnlockMutex(rawData->Mutex);
-			gatherThread = SDL_CreateThread(data_Gather, "data_Gather", rawData);
+			//}
+			//else
+				//hasRun = 1;
+			SDL_UnlockMutex(data->Mutex);
+			gatherThread = SDL_CreateThread(data_Gather, "gather", (void*)data);
 			SDL_DetachThread(gatherThread);
-		}		
+		}
+		//Slider_Render(ren, textures, timeSlide);
+		//SDL_RenderPresent(ren);
 	}
 
 		//wait for gather thread to complete before quitting to avoid memory access error
 
 	SDL_Quit();
-	CloseHandle(rawData->port);//Close the Serial Port
+	CloseHandle(data->port);//Close the Serial Port
 	return 0;
 }

@@ -1,7 +1,7 @@
 /*draws graph with points to renderer when given gather_data* and SDL_Renderer*/
 #include "MainHead.h"
 
-void graph_Update(data_processed* data, SDL_Renderer* ren) {
+void graph_Update(data* data, SDL_Renderer* ren) {
 	float j;
 	int i;
 	Uint16 hDiv10 = data->graphHeight / 10;
@@ -37,5 +37,5 @@ void graph_Update(data_processed* data, SDL_Renderer* ren) {
 	/*set the color of the points*/
 	SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
 	/*plot data points and connect them*/
-	SDL_RenderDrawLines(ren, data->points, (data->graphWidth));
+	SDL_RenderDrawLines(ren, data->points, data->graphWidth);
 }
