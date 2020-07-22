@@ -9,21 +9,6 @@
 /*
 struct that stores one set of points and related data
 */
-/*typedef struct {
-	Uint32 numOfPoints;
-	Uint16 graphHeight;
-	Uint16 graphWidth;
-	SDL_Point* points;		//data points ready to be graphed
-	Uint16 valueMax;		//largest possible value from ADC
-	SDL_mutex* Mutex;
-} data_processed;
-
-typedef struct {
-	Uint32 numOfPoints;
-	HANDLE port;
-	SDL_mutex* Mutex;
-	Uint16* rawData;
-} data_raw;*/
 
 typedef struct {
 	Uint32 numOfPoints;		//number of points to be collected
@@ -33,6 +18,7 @@ typedef struct {
 	Uint16 valueMax;		//largest possible value from ADC
 	HANDLE port;
 	SDL_mutex* Mutex;
+	Uint8 resize;			//BOOL, true if points* needs to be resized
 } data;
 
 /*
@@ -61,7 +47,12 @@ const char* BitsNBobs_append(const char* orgin, const char* toAppend);
 int BitsNBobs_mapTo(int x, int inMin, int inMax, int outMin, int outMax);
 
 //data.c
- void data_Gather(data* grphInfo);
+ int data_Gather(data* grphInfo);
+
+ /*
+copies points to grphInfoCPY, copies numOfPoints, height, width, and valueMax to grphInfo
+*/
+ void data_copy(data* grphInfo, data* grphInfoCPY);
 
  //int data_Process(data_raw* rawData, data_processed* processedData);
 
@@ -74,6 +65,8 @@ int BitsNBobs_mapTo(int x, int inMin, int inMax, int outMin, int outMax);
  //data_processed* init_data_processed();
 
  data* init_data();
+
+ void* init_dataCopy(data* grphInfo, data* grphInfoCPY);
 
  Slider* init_slider(Uint8 initPosition, Uint8 numOfPositions, Uint32 height, Uint32 upperLeftX, Uint32 upperLeftY);
 

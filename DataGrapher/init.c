@@ -1,26 +1,5 @@
 #include "MainHead.h"
 
-/*data_processed* init_data_processed() {
-	data_processed* data = malloc(sizeof(data_processed));
-	data->graphHeight = 400;
-	data->graphWidth = 500;
-	data->numOfPoints = data->graphWidth + 20;
-	data->points = malloc(sizeof(SDL_Point) * data->numOfPoints);
-	data->valueMax = 1023;
-	data->Mutex = SDL_CreateMutex();
-
-	return data;
-}
-
-data_raw* init_data_raw(data_processed* processed_data) {
-	data_raw* data = malloc(sizeof(data_raw));
-	data->Mutex = SDL_CreateMutex();
-	data->numOfPoints = processed_data->numOfPoints;
-	init_port(data);
-	data->rawData = malloc(sizeof(Uint16) * data->numOfPoints);
-	return data;
-}*/
-
 data* init_data() {
 	data* grphInfo = malloc(sizeof(data));
 	grphInfo->graphHeight = 400;
@@ -31,8 +10,22 @@ data* init_data() {
 	if (init_port(grphInfo))
 		return NULL;
 	grphInfo->Mutex = SDL_CreateMutex();
-
+	grphInfo->resize = NULL;
 	return grphInfo;
+}
+
+void* init_dataCopy(data* grphInfo, data* grphInfoCPY) {
+	grphInfoCPY->numOfPoints = grphInfo->numOfPoints;
+	grphInfoCPY->graphHeight = grphInfo->graphHeight;
+	grphInfoCPY->graphWidth = grphInfo->graphWidth;
+	grphInfoCPY->points = malloc(sizeof(SDL_Point) * grphInfo->numOfPoints);
+	grphInfoCPY->valueMax = grphInfo->valueMax;
+	grphInfoCPY->port = NULL;
+	grphInfoCPY->Mutex = NULL;
+	for (int i = 0; i < grphInfo->numOfPoints; i++) {
+		grphInfoCPY->points[i].y = grphInfo->points[i].y;
+		grphInfoCPY->points[i].x = grphInfo->points[i].x;
+	}
 }
 
 int init_port(data* grphInfo) {

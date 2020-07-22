@@ -1,7 +1,7 @@
 // gathers one array of data from a serial port
 #include "MainHead.h"
 
-void data_Gather(data* grphInfo) {
+int data_Gather(data* grphInfo) {
 	SDL_LockMutex(grphInfo->Mutex);
 	char file_rBuf;
 	char dataBuf[10];
@@ -21,7 +21,7 @@ void data_Gather(data* grphInfo) {
 			if (!math) {
 				error = GetLastError();
 				SDL_UnlockMutex(grphInfo->Mutex);
-				return;
+				return 1;
 			}
 			if (file_rBuf == '\n')
 				end = 1;
@@ -39,4 +39,28 @@ void data_Gather(data* grphInfo) {
 			j--;
 	}
 	SDL_UnlockMutex(grphInfo->Mutex);
+	return 0;
+}
+
+/*
+copies points to grphInfoCPY, copies numOfPoints, height, width, and valueMax to grphInfo
+*/
+void data_copy(data* grphInfo, data* grphInfoCPY) {
+	void* pointer = NULL;
+	if (grphInfoCPY->resize) {
+		pointer = realloc(grphInfo->points, sizeof(SDL_Point) * grphInfoCPY->numOfPoints);
+		if (pointer != NULL)
+			grphInfo->points = pointer;
+		else
+			return;
+		grphInfoCPY->resize = 0;
+	}
+	grphInfo->graphHeight = grphInfoCPY->graphHeight;
+	grphInfo->graphWidth = grphInfoCPY->graphWidth;
+	grphInfoCPY->valueMax = grphInfo->valueMax;
+	for (int i = 0; i < grphInfo->numOfPoints && i < grphInfoCPY->numOfPoints; i++) {
+		grphInfoCPY->points[i].y = grphInfo->points[i].y;
+		grphInfoCPY->points[i].x = grphInfo->points[i].x;
+	}
+	grphInfo->numOfPoints = grphInfoCPY->numOfPoints;
 }

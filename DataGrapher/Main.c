@@ -10,6 +10,7 @@ int main(int argc, char** argv) {
 	SDL_Point mousePos;
 	Uint8 hasRun = 0;
 	int Status;
+	void* pointer = NULL;
 
 	//variables to keep track of threads
 	SDL_Thread* gatherThread;
@@ -25,17 +26,18 @@ int main(int argc, char** argv) {
 
 	/*initialize structs and stuff*/
 	Textures* textures = init_Textures(basePath, ren);		//load textures
-	data* data = init_data();
-	if (data == NULL)
-		return 1;
-	//data_raw* data = init_data_raw(data);
+	data* grphInfo = init_data();
+	data* grphInfoCPY = malloc(sizeof(data));
+	init_dataCopy(grphInfo, grphInfoCPY);
+	if (grphInfo == NULL)
+		return 64;
 
 	/*initialize gui elements*/
 	Slider* timeSlide = init_slider(0, 10, 200, (width - 50), 50);
 
 	/*start first data colection*/
-	SDL_UnlockMutex(data->Mutex);
-	gatherThread = SDL_CreateThread(data_Gather, "Gather", (void*)data);
+	SDL_UnlockMutex(grphInfo->Mutex);
+	gatherThread = SDL_CreateThread(data_Gather, "Gather", (void*)grphInfo);
 	SDL_DetachThread(gatherThread);
 	
 	/*enter window loop*/
@@ -53,6 +55,19 @@ int main(int argc, char** argv) {
 
 					/* update all elements who's position is changed by a window resize */
 					Slider_UpdatePosition(width - 50, (Uint32)NULL, timeSlide);
+					grphInfoCPY->graphHeight = 3 * (height / 4);
+					grphInfoCPY->graphHeight = grphInfoCPY->graphHeight - (grphInfoCPY->graphHeight % 10);
+					grphInfoCPY->graphWidth = 3 * (width / 4);
+					grphInfoCPY->graphWidth = grphInfoCPY->graphWidth - (grphInfoCPY->graphWidth % 10);
+					grphInfoCPY->numOfPoints = grphInfoCPY->graphWidth + 20;
+					//meke sure realloc doesn't return NULL
+					pointer = NULL;
+					pointer = realloc(grphInfoCPY->points, sizeof(SDL_Point) * grphInfoCPY->numOfPoints);
+					if (pointer != NULL)
+						grphInfoCPY->points = pointer;
+					else
+						return 98;
+					grphInfoCPY->resize = 1;
 					break;
 				}
 				break;
@@ -83,26 +98,26 @@ int main(int argc, char** argv) {
 					Slider_MoveWithMouse(mousePos, timeSlide);
 				break;
 			}
-			
+
 		}
-		Status = SDL_TryLockMutex(data->Mutex);
-		if (Status == 0) {
-			SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
-			SDL_RenderClear(ren);
-			/*render any and all GUI elements other than graph*/
-			Slider_Render(ren, textures, timeSlide);
-			/*render graph*/
-			graph_Update(data, ren);
-			SDL_RenderPresent(ren);
-			SDL_UnlockMutex(data->Mutex);
-			gatherThread = SDL_CreateThread(data_Gather, "gather", (void*)data);
+		if (SDL_TryLockMutex(grphInfo->Mutex) == 0) {
+			data_copy(grphInfo, grphInfoCPY);
+			SDL_UnlockMutex(grphInfo->Mutex);
+			gatherThread = SDL_CreateThread(data_Gather, "gather", (void*)grphInfo);
 			SDL_DetachThread(gatherThread);
 		}
+		SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+		SDL_RenderClear(ren);
+		/*render any and all GUI elements other than graph*/
+		Slider_Render(ren, textures, timeSlide);
+		/*render graph*/
+		graph_Update(grphInfoCPY, ren);
+		SDL_RenderPresent(ren);
 	}
 
 		//wait for gather thread to complete before quitting to avoid memory access error
 
 	SDL_Quit();
-	CloseHandle(data->port);//Close the Serial Port 
+	CloseHandle(grphInfo->port);//Close the Serial Port 
 	return 0;
 }

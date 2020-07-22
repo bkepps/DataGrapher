@@ -4,20 +4,8 @@
 void graph_Update(data* data, SDL_Renderer* ren) {
 	float j;
 	int i;
-	Uint16 hDiv10 = data->graphHeight / 10;
-	Uint16 hDiv100 = data->graphHeight / 80;
-	Uint16 wDiv10 = data->graphWidth / 10;
-	Uint16 wDiv100 = data->graphWidth / 80;
-
-	SDL_SetRenderDrawColor(ren, 220, 220, 220, 255);
-	/*creates horizontal lines about 50mV apart*/
-	for (j = data->graphHeight; j >= 0; j -= hDiv100) {
-		SDL_RenderDrawLine(ren, 0, j, (data->graphWidth), j);
-	}
-	/*creates vertical lines 10 points apart*/
-	for (i = 0; i <= (data->graphWidth); i += wDiv100) {
-		SDL_RenderDrawLine(ren, i, 0, i, data->graphHeight);
-	}
+	float hDiv10 = data->graphHeight / 10;
+	float wDiv10 = data->graphWidth / 10;
 
 	SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
 	/*creates darker horizontal line every 1V with 10-bit 0-5V adc*/
